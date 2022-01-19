@@ -1,4 +1,4 @@
-package com.example.test6.Model.Retrofit
+package com.example.test6.model.retrofit
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -24,7 +24,6 @@ object RetrofitClient {
                 .client(okHttpClient)
                 .build()
         }
-        return  retrofit!!
-
+        return retrofit!!
     }
 }

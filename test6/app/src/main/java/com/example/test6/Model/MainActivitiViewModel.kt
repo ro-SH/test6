@@ -1,15 +1,22 @@
-package com.example.test6.Model
+package com.example.test6.model
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.test6.common.Common
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivitiViewModel: ViewModel() {
-    private val mainrepo : Mainrepo
-    val  getMovieList :LiveData<MutableList<Movies>>
-    get() = mainrepo.getMovieModelLiveData
+
+    private val _urlList = MutableLiveData<List<String>>()
+    val urlList: LiveData<List<String>>
+        get() = _urlList
 
     init {
-        mainrepo = Mainrepo()
+        viewModelScope.launch(Dispatchers.IO) {
+            _urlList.postValue(Common.retrofitService.getUrlList())
+        }
     }
-
 }
